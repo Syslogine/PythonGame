@@ -88,7 +88,7 @@ def display_hangman(attempts):
     ]
     print(hangman_graphics[attempts])
 
-def hangman():
+def main():
     max_attempts = 6
     guessed_letters = []
     word_to_guess, words = choose_word()
@@ -130,4 +130,4 @@ def hangman():
         print(f"Sorry, you ran out of attempts. The word was: {words[word_to_guess]}")
 
 if __name__ == "__main__":
-    hangman()
+    main()

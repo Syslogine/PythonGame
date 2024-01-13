@@ -1,48 +1,59 @@
-# Hangman Game in Python
+# Python Game Collection
 
-This is a simple implementation of the classic Hangman game in Python. The game randomly selects a word from a predefined list, and the player has to guess the letters to complete the word within a limited number of attempts.
+Welcome to my Python Game Collection! This repository contains a variety of simple text-based and pygame-based games.
 
-## Features
+## Table of Contents
 
-1. **Word Categories:** Each word belongs to a specific category (e.g., Programming, Developer, Science).
-2. **Scoring System:** Players earn points based on the number of attempts left when they successfully guess the word.
-3. **Visual Hangman Display:** A visual representation of the hangman is displayed as incorrect guesses accumulate.
+- [Hangman Game](#hangman-game)
+- [Snake Game](#snake-game)
+- [Tic-Tac-Toe Game](#tic-tac-toe-game)
+- [Main Menu](#main-menu)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Usage
+## Hangman Game
 
-1. **Clone the repository:**
+The Hangman Game is a classic word-guessing game. You have to guess the hidden word by suggesting letters. Be cautious, as you only have a limited number of attempts!
 
-   ```bash
-   git clone https://github.com/Syslogine/PythonGame.git
-   ```
+**How to Play:**
+To play the Hangman Game, run the `hangman_game.py` script.
 
-2. **Navigate to the project directory:**
+```bash
+python hangman_game.py
+```
 
-   ```bash
-   cd PythonGame
-   ```
+## Snake Game
 
-3. **Run the game:**
+The Snake Game is a classic snake-eating-food game. Control the snake to eat the food and grow longer. Be careful not to run into yourself!
 
-   ```bash
-   python hangman_game.py
-   ```
+**How to Play:**
+To play the Snake Game, run the `snake_game.py` script.
 
-4. **Follow the on-screen instructions to guess the letters and complete the word.**
+```bash
+python snake_game.py
+```
 
-## Rules
+## Tic-Tac-Toe Game
 
-- Players can only input single letters.
-- The game provides feedback on correct and incorrect guesses.
-- The player's score is based on the number of attempts remaining when the word is correctly guessed.
+The Tic-Tac-Toe Game is a simple two-player game where players take turns marking spaces on a 3x3 grid. The first player to get three in a row wins!
 
-## Customization
+**How to Play:**
+To play the Tic-Tac-Toe Game, run the `tic_tac_toe_game.py` script.
 
-Feel free to customize the game further:
+```bash
+python tic_tac_toe_game.py
+```
 
-- Modify the list of words in the `choose_word` function to include your own set of words.
-- Add new word categories and corresponding words.
-- Enhance the visual representation of the hangman.
+## Main Menu
+
+The Main Menu script allows you to choose and play different games from this collection. Follow the on-screen instructions to select a game easily.
+
+**How to Use:**
+To run the Main Menu, use the following command:
+
+```bash
+python main_menu.py
+```
 
 ## Contributing
 
@@ -50,6 +61,4 @@ Contributions are welcome! If you have ideas for improvements or new features, f
 
 ## License
 
-This Hangman game is licensed under the [MIT License](LICENSE).
-
-Enjoy playing Hangman!
+Python Game Collection is licensed under the [MIT License](LICENSE).

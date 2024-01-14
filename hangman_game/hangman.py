@@ -1,15 +1,28 @@
+import os
+import nltk
 import random
 
-def choose_word():
-    words = {
-        'programming': 'Programming',
-        'hangman': 'Hangman',
-        'developer': 'Developer',
-        'computer': 'Computer',
-        'science': 'Science',
-        'python': 'Python'
-    }
-    return random.choice(list(words.keys())), words
+nltk.download('words')
+
+def choose_word(difficulty):
+    words = nltk.corpus.words.words()
+    
+    if difficulty == 'easy':
+        filtered_words = [word.lower() for word in words if 4 <= len(word) <= 6 and word.isalpha()]
+    elif difficulty == 'medium':
+        filtered_words = [word.lower() for word in words if 7 <= len(word) <= 9 and word.isalpha()]
+    else:  # 'hard'
+        filtered_words = [word.lower() for word in words if 10 <= len(word) and word.isalpha()]
+    
+    return random.choice(filtered_words)
+
+def set_difficulty():
+    while True:
+        difficulty = input("Choose a difficulty level (easy/medium/hard): ").lower()
+        if difficulty in ['easy', 'medium', 'hard']:
+            return difficulty
+        else:
+            print("Invalid difficulty. Please choose easy, medium, or hard.")
 
 def display_word(word, guessed_letters):
     display = ""
@@ -86,48 +99,69 @@ def display_hangman(attempts):
          -
         '''
     ]
-    print(hangman_graphics[attempts])
+    max_index = len(hangman_graphics) - 1
+    index_to_display = min(attempts, max_index)
 
-def main():
-    max_attempts = 6
-    guessed_letters = []
-    word_to_guess, words = choose_word()
-    attempts = 0
-    score = 0
+    print(hangman_graphics[index_to_display])
 
-    print("Welcome to Hangman!")
-    print(display_word(words[word_to_guess], guessed_letters))
-
-    while attempts < max_attempts:
+def get_user_guess(guessed_letters):
+    while True:
         guess = input("Guess a letter: ").lower()
-
         if len(guess) != 1 or not guess.isalpha():
             print("Please enter a single letter.")
-            continue
-
-        if guess in guessed_letters:
+        elif guess in guessed_letters:
             print("You already guessed that letter. Try again.")
-            continue
-
-        guessed_letters.append(guess)
-
-        if guess not in word_to_guess:
-            attempts += 1
-            print(f"Wrong guess! Attempts left: {max_attempts - attempts}")
-            display_hangman(attempts)
         else:
-            print("Good guess!")
+            return guess
 
-        current_display = display_word(words[word_to_guess], guessed_letters)
-        print(current_display)
+def play_again():
+    response = input("Do you want to play again? (yes/no): ").lower()
+    return response.startswith('y')
 
-        if current_display == words[word_to_guess]:
-            score += (max_attempts - attempts) * 10
-            print(f"Congratulations! You guessed the word. Score: {score}")
+def main():
+    while True:
+        os.system('clear')  # Clear the screen for a cleaner interface
+        difficulty = set_difficulty()
+
+        if difficulty == 'easy':
+            max_attempts = 8
+        elif difficulty == 'medium':
+            max_attempts = 6
+        else:  # 'hard'
+            max_attempts = 4
+
+        guessed_letters = []
+        word_to_guess = choose_word(difficulty)
+        attempts = 0
+        score = 0
+
+        print(f"Welcome to Hangman! Difficulty: {difficulty.capitalize()}")
+        print(display_word(word_to_guess, guessed_letters))
+
+        while attempts < max_attempts:
+            guess = get_user_guess(guessed_letters)
+            guessed_letters.append(guess)
+
+            if guess not in word_to_guess:
+                attempts += 1
+                print(f"Wrong guess! Attempts left: {max_attempts - attempts}")
+                display_hangman(attempts)
+            else:
+                print("Good guess!")
+
+            current_display = display_word(word_to_guess, guessed_letters)
+            print(current_display)
+
+            if current_display == word_to_guess:
+                score += (max_attempts - attempts) * 10
+                print(f"Congratulations! You guessed the word. Score: {score}")
+                break
+
+        if current_display != word_to_guess:
+            print(f"Sorry, you ran out of attempts. The word was: {word_to_guess}")
+
+        if not play_again():
             break
-
-    if current_display != words[word_to_guess]:
-        print(f"Sorry, you ran out of attempts. The word was: {words[word_to_guess]}")
 
 if __name__ == "__main__":
     main()
